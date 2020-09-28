@@ -1,0 +1,36 @@
+<template>
+  <div class="admin-page">
+    <section class="new-post">
+      <button
+        @click="$router.push('/admin/new-post')"
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      >
+        Create Post
+      </button>
+    </section>
+    <section class="existing-posts">
+      <h1>Existing Posts</h1>
+      <PostList />
+    </section>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+.admin-page {
+  padding: 20px;
+}
+
+.new-post {
+  text-align: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.existing-posts h1 {
+  text-align: center;
+}
+</style>
