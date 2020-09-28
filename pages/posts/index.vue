@@ -1,5 +1,9 @@
 <template>
-  <div class="posts-page"></div>
+  <div class="posts-page">
+    <section class="posts-list">
+      <PostList />
+    </section>
+  </div>
 </template>
 
 <script>
