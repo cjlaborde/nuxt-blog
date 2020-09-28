@@ -1,12 +1,12 @@
 <template>
   <div class="admin-page">
     <section class="new-post">
-      <button
+      <AppButton
         @click="$router.push('/admin/new-post')"
         class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
       >
         Create Post
-      </button>
+      </AppButton>
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
