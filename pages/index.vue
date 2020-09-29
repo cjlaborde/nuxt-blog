@@ -1,8 +1,5 @@
 <template>
   <div class="home-page">
-    <section class="intro">
-      <h1>Get the latest tech news!</h1>
-    </section>
     <section class="featured-posts">
       <PostList :posts="loadedPosts" />
     </section>
@@ -15,6 +12,7 @@ export default {
   // executes on server.
   // .this does not work here since asyncData works before this component actually created
   asyncData(context, callback) {
+    console.log("asyncData is executed!");
     setTimeout(() => {
       callback(null, {
         loadedPosts: [
