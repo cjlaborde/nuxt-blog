@@ -1,13 +1,13 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="text-3xl post-title">Title of the Post</h1>
+      <h1 class="text-3xl post-title">{{ loadedPost.title }}</h1>
       <div>
-        <div>Last updated on XXX</div>
-        <div>Written by Name</div>
+        <div>Last updated on {{ loadedPost.updatedDate }}</div>
+        <div>Written by {{ loadedPost.author }}</div>
         <hr class="border my-3" />
       </div>
-      <p class="post-content">Content of the post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>
@@ -19,7 +19,49 @@
 </template>
 
 <script>
-export default {};
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: "1",
+          // context.params.id  since we can't use this.$route.params since it has not been created yet.
+          title: "First Post (ID: " + context.params.id + ")",
+          previewText: "This is our first post!",
+          author: "John",
+          updatedDate: new Date(),
+          content: "Temporally text which is not yet the preview text",
+          thumbnail: "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
+        },
+      });
+    }, 1500);
+  },
+  // asyncData(context) {
+  //   return new Promise((resolve, reject) => {
+  //     // console.log(contex);
+  //     setTimeout(() =>
+  //       resolve(
+  //         {
+  //           loadedPost: [
+  //             {
+  //               id: "1",
+  //               // context.params.id  since we can't use this.$route.params since it has not been created yet.
+  //               title: "First Post (ID: " + context.params.id + ")",
+  //               previewText: "This is our first post!",
+  //               author: "John",
+  //               updatedDate: new Date(),
+  //               content: "Temporally text which is not yet the preview text",
+  //               thumbnail:
+  //                 "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
+  //             },
+  //           ],
+  //         },
+  //         1500
+  //       )
+  //     );
+  //   });
+  // },
+};
 </script>
 
 <style scoped>
