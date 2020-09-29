@@ -13,7 +13,7 @@ export default {
   // .this does not work here since asyncData works before this component actually created
   asyncData(context) {
     return new Promise((resolve, reject) => {
-      // console.log(contex);
+      // console.log(context);
       setTimeout(() =>
         resolve(
           {

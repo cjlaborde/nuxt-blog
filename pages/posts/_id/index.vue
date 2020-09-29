@@ -36,31 +36,6 @@ export default {
       });
     }, 1500);
   },
-  // asyncData(context) {
-  //   return new Promise((resolve, reject) => {
-  //     // console.log(contex);
-  //     setTimeout(() =>
-  //       resolve(
-  //         {
-  //           loadedPost: [
-  //             {
-  //               id: "1",
-  //               // context.params.id  since we can't use this.$route.params since it has not been created yet.
-  //               title: "First Post (ID: " + context.params.id + ")",
-  //               previewText: "This is our first post!",
-  //               author: "John",
-  //               updatedDate: new Date(),
-  //               content: "Temporally text which is not yet the preview text",
-  //               thumbnail:
-  //                 "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
-  //             },
-  //           ],
-  //         },
-  //         1500
-  //       )
-  //     );
-  //   });
-  // },
 };
 </script>
 

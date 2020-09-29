@@ -6,38 +6,28 @@
 
 <script>
 export default {
-  asyncData(context) {
-    return new Promise((resolve, reject) => {
-      // console.log(contex);
-      setTimeout(() =>
-        resolve(
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(new Error(), {
+        loadedPosts: [
           {
-            loadedPosts: [
-              {
-                id: "1",
-                title: "First Post",
-                previewText: "This is our first post!",
-                thumbnail:
-                  "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
-              },
-              {
-                id: "2",
-                title: "Second Post",
-                previewText: "This is our second post!",
-                thumbnail:
-                  "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
-              },
-            ],
+            id: "1",
+            title: "First Post",
+            previewText: "This is our first post!",
+            thumbnail: "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
           },
-          1500
-        )
-      );
-    });
+          {
+            id: "2",
+            title: "Second Post",
+            previewText: "This is our second post!",
+            thumbnail: "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
+          },
+        ],
+      });
+    }, 1500);
   },
 };
 </script>
-
-
 
 <style scoped>
 .posts-page {
