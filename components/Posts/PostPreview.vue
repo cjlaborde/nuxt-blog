@@ -1,13 +1,15 @@
 <template>
-  <nuxt-link :to="postLink" class="post-preview">
-    <article>
+  <nuxt-link :to="postLink" class="max-w-sm rounded overflow-hidden shadow-lg">
+    <article class="max-w-sm rounded overflow-hidden shadow-lg mb-4">
       <div
-        class="post-thumbnail"
+        class="post-thumbnail w-full"
         :style="{ backgroundImage: 'url(' + thumbnail + ')' }"
       ></div>
-      <div class="post-content">
-        <h1>{{ title }}</h1>
-        <p>{{ previewText }}</p>
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-2">{{ title }}</div>
+        <p class="text-gray-700 text-base">
+          {{ previewText }}
+        </p>
       </div>
     </article>
   </nuxt-link>
