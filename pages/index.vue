@@ -4,11 +4,33 @@
       <h1>Get the latest tech news!</h1>
     </section>
     <section class="featured-posts">
-      <PostList />
+      <PostList :posts="loadedPosts" />
     </section>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      loadedPosts: [
+        {
+          id: "1",
+          title: "First Post",
+          previewText: "This is our first post!",
+          thumbnail: "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
+        },
+        {
+          id: "2",
+          title: "Second Post",
+          previewText: "This is our se cond post!",
+          thumbnail: "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
+        },
+      ],
+    };
+  },
+};
+</script>
 
 <style scoped>
 /* Sample `apply` at-rules with Tailwind CSS
