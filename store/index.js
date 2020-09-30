@@ -11,7 +11,7 @@ const createStore = () => {
             }
         },
         actions: {
-            // Gets executed one time only on the server
+            // Gets executed one time only on the server to have fast loading times
             // context is the payload that is always the same one you get in fetch and asyncData
 
             nuxtServerInit(vuexContext, context) {
