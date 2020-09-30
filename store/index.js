@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import axios from "axios";
 
 const createStore = () => {
     return new Vuex.Store({
@@ -13,29 +14,20 @@ const createStore = () => {
         actions: {
             // Gets executed one time only on the server to have fast loading times
             // context is the payload that is always the same one you get in fetch and asyncData
-
             nuxtServerInit(vuexContext, context) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        vuexContext.commit('setPosts', [
-                            {
-                                id: "1",
-                                title: "First Post",
-                                previewText: "This is our first post!",
-                                thumbnail:
-                                    "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
-                            },
-                            {
-                                id: "2",
-                                title: "Second Post",
-                                previewText: "This is our second post!",
-                                thumbnail:
-                                    "https://img.caixin.com/2019-07-24/1563971044321649.jpg",
-                            },
-                        ])
-                        resolve();
-                    }, 1000)
-                });
+                return axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json')
+                    .then(res => {
+                        const postsArray = []
+                        for (const key in res.data) {
+                            // you can store the actual id by pushing a new object
+                            // where we use spread operator to pull out all the properties
+                            // we have in that data object were fetching for a given key
+                            // this can be used if we later want to edit the post
+                            postsArray.push({ ...res.data[key], id: key })
+                        }
+                        vuexContext.commit('setPosts', postsArray)
+                    })
+                    .catch(e => context.error(e))
             },
             setPosts(vuexContext, posts) {
                 vuexContext.commit('setPosts', posts)
