@@ -9,7 +9,7 @@
 <script>
 import axios from "axios";
 export default {
-  layout: "admin",
+  // layout: "admin",
   methods: {
     onSubmitted(postData) {
       axios
@@ -19,7 +19,7 @@ export default {
           // Add the updated date
           updatedDate: new Date(),
         })
-        .then((result) => console.log(result))
+        .then((result) => this.$router.push("/admin"))
         .catch((e) => console.log(e));
     },
   },
