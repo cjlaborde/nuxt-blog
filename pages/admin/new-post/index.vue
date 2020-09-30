@@ -13,7 +13,12 @@ export default {
   methods: {
     onSubmitted(postData) {
       axios
-        .post("https://nuxt-blog-bee7d.firebaseio.com/posts.json", postData)
+        .post("https://nuxt-blog-bee7d.firebaseio.com/posts.json", {
+          // submited form data comming from form
+          ...postData,
+          // Add the updated date
+          updatedDate: new Date(),
+        })
         .then((result) => console.log(result))
         .catch((e) => console.log(e));
     },
