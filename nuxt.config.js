@@ -68,5 +68,26 @@ export default {
   },
   env: {
     baseUrl: process.env.BASE_URL || 'https://nuxt-blog-bee7d.firebaseio.com'
+  },
+  // rootDir: '/blog'
+
+  // set settings for vue router
+  router: {
+    // used when serving app from a sub foulder, if not serve from the root
+    // base: '/my-app',
+
+    // allow you to programatically add your own route
+    // extendRoutes(routes, resolve) {
+    //   routes.push({
+    //     path: '*',
+    //     component: resolve(__dirname, 'pages/index.vue')
+    //   })
+    // }
+
+    // set default active class
+    // set active class
+    // linkActiveClass: 'active',
+
+
   }
 }
