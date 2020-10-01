@@ -44,6 +44,7 @@ export default {
   plugins: [
     // makes components global but now that is part of the default so not needed
     // '~plugins/core-components.js'
+    '~plugins/date-filter.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
