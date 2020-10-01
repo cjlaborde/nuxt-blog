@@ -35,10 +35,9 @@ export default {
     background: 'white'
   },
 
-
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    // '~assets/styles/main.css'
+    '~assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -87,7 +86,14 @@ export default {
     // set default active class
     // set active class
     // linkActiveClass: 'active',
+  },
+  // nuxt will look for this folder for all pages/components/middleware etc
+  // srcDir: 'client-app'
 
-
+  //used for animations when moving to different pages
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
   }
+
 }
