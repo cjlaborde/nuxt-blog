@@ -2,6 +2,9 @@ export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
+  // if you use spa you have to load data different instead of asyncData use data
+  // mode: 'spa',
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'WB Blog',
@@ -15,6 +18,23 @@ export default {
       { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Open+Sans" }
     ]
   },
+
+  loading: {
+    color: 'blue',
+    height: '5px',
+    duration: 5000
+  },
+
+  // loadingIndicator: {
+  //   name: 'circle',
+  //   color: '#fa923'
+  // },
+  loadingIndicator: {
+    name: 'circle',
+    color: '#3B8070',
+    background: 'white'
+  },
+
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
