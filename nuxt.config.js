@@ -42,6 +42,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    // makes components global but now that is part of the default so not needed
+    // '~plugins/core-components.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
