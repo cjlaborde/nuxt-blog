@@ -12,11 +12,7 @@ export default {
   layout: "admin",
   asyncData(context) {
     return axios
-      .get(
-        "https://nuxt-blog-bee7d.firebaseio.com/posts/" +
-          context.params.postId +
-          ".json"
-      )
+      .get(process.env.baseUrl + "/posts/" + context.params.postId + ".json")
       .then((res) => {
         return {
           // loadedPost: res.data,

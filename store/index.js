@@ -23,7 +23,7 @@ const createStore = () => {
             // context is the payload that is always the same one you get in fetch and asyncData
             async nuxtServerInit(vuexContext, context) {
                 try {
-                    const res = await axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json');
+                    const res = await axios.get(process.env.baseUrl + '/posts.json');
                     const postsArray = [];
                     for (const key in res.data) {
                         // you can store the actual id by pushing a new object
