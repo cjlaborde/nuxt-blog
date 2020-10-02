@@ -41,17 +41,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      // https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
-      this.$axios
-        .$post(
+      // https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
+      let authUrl =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
+        process.env.fbAPIKey;
+      if (!this.isLogin) {
+        // https://firebase.google.com/docs/reference/rest/auth#section-create-email-password
+        authUrl =
           "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" +
-            process.env.fbAPIKey,
-          {
-            email: this.email,
-            password: this.password,
-            returnSecureToken: true,
-          }
-        )
+          process.env.fbAPIKey;
+      }
+      this.$axios
+        .$post(authUrl, {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true,
+        })
         .then((result) => {
           console.log(result);
         })
