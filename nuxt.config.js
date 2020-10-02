@@ -74,7 +74,8 @@ export default {
   build: {
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-bee7d.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-bee7d.firebaseio.com',
+    fbAPIKey: 'AIzaSyDyf0XEJpI4WIwH3EVmqSdV61SiRkLVf5Q'
   },
   // rootDir: '/blog'
 
