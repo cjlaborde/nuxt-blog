@@ -9,7 +9,10 @@
 <script>
 import TheHeader from "@/components/Navigation/TheHeader";
 import TheSideNav from "@/components/Navigation/TheSideNav";
+
 export default {
+  // individual page middleware
+  // middleware: "log",
   components: {
     TheHeader,
     TheSideNav,

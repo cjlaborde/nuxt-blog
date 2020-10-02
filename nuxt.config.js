@@ -80,6 +80,9 @@ export default {
 
   // set settings for vue router
   router: {
+    // middleware that works in all routes
+    // middleware: 'log'
+
     // used when serving app from a sub foulder, if not serve from the root
     // base: '/my-app',
 
