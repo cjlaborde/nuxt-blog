@@ -63,7 +63,12 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: process.env.BASE_URL || 'https://nuxt-blog-bee7d.firebaseio.com',
+    credentials: false
+  },
+
+
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

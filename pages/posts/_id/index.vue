@@ -19,18 +19,18 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  asyncData(context) {
-    return axios
-      .get(process.env.baseUrl + "/posts/" + context.params.id + ".json")
-      .then((res) => {
-        return {
-          loadedPost: res.data,
-        };
-      })
-      .catch((e) => context.error(e));
+  async asyncData(context) {
+    try {
+      const post = await context.app.$axios.$get(
+        "/posts/" + context.params.id + ".json"
+      );
+      return {
+        loadedPost: post,
+      };
+    } catch (e) {
+      context.error(e);
+    }
   },
   head: {
     title: "A Blog Post",

@@ -1,5 +1,4 @@
 import Vuex from 'vuex';
-import axios from "axios";
 
 const createStore = () => {
     return new Vuex.Store({
@@ -23,16 +22,17 @@ const createStore = () => {
             // context is the payload that is always the same one you get in fetch and asyncData
             async nuxtServerInit(vuexContext, context) {
                 try {
-                    const res = await axios.get(process.env.baseUrl + '/posts.json');
+                    const res = await context.app.$axios.$get('/posts.json');
                     const postsArray = [];
-                    for (const key in res.data) {
+                    for (const key in res) {
                         // you can store the actual id by pushing a new object
                         // where we use spread operator to pull out all the properties
                         // we have in that data object were fetching for a given key
                         // this can be used if we later want to edit the post
-                        postsArray.push({ ...res.data[key], id: key });
+                        postsArray.push({ ...res[key], id: key });
                     }
                     vuexContext.commit('setPosts', postsArray);
+                    return res
                 } catch (e) {
                     return context.error(e);
                 }
@@ -44,24 +44,26 @@ const createStore = () => {
                     // Add the updated date
                     updatedDate: new Date(),
                 }
-                return axios
-                    .post("https://nuxt-blog-bee7d.firebaseio.com/posts.json", createdPost)
+                return this.$axios
+                    .$post("/posts.json", createdPost)
                     .then((result) => {
-                        vuexContext.commit('addPost', { ...createdPost, id: result.data.name })
+                        console.log(result.name)
+                        vuexContext.commit('addPost', { ...createdPost, id: result.name })
                     })
                     .catch((e) => console.log(e));
             },
             editPost(vuexContext, editedPost) {
-                return axios
-                    .put(
+                return this.$axios
+                    .$put(
                         // editedPost will replace existing data on server
-                        "https://nuxt-blog-bee7d.firebaseio.com/posts/" +
+                        "/posts/" +
                         editedPost.id +
                         ".json",
                         editedPost
                     )
-                    .then((res) => {
-                        vuexContext.commit('editPost', editedPost)
+                    .then((editedPost) => {
+                        vuexContext.commit('editPost', editedPost
+                        )
                     })
                     .catch((e) => console.log(e));
             },

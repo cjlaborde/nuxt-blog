@@ -7,19 +7,20 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   layout: "admin",
-  asyncData(context) {
-    return axios
-      .get(process.env.baseUrl + "/posts/" + context.params.postId + ".json")
-      .then((res) => {
-        return {
-          // loadedPost: res.data,
-          loadedPost: { ...res.data, id: context.params.postId },
-        };
-      })
-      .catch((e) => context.error());
+  async asyncData(context) {
+    try {
+      const post = await context.app.$axios.$get(
+        "/posts/" + context.params.postId + ".json"
+      );
+      // console.log(post);
+      return {
+        loadedPost: { ...post, id: context.params.postId },
+      };
+    } catch (e) {
+      context.error(e);
+    }
   },
   methods: {
     onSubmitted(editedPost) {
