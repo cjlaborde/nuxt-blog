@@ -9,7 +9,8 @@
 <script>
 import axios from "axios";
 export default {
-  // layout: "admin",
+  layout: "admin",
+  middleware: "auth",
   methods: {
     onSubmitted(postData) {
       this.$store.dispatch("addPost", postData).then(() => {
