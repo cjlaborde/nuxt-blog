@@ -20,6 +20,9 @@ const createStore = () => {
             setToken(state, token) {
                 state.token = token
             },
+            crearToken(state) {
+                state.token = null
+            }
         },
         actions: {
             // Gets executed one time only on the server to have fast loading times
@@ -96,8 +99,17 @@ const createStore = () => {
                     .then((result) => {
                         // console.log(result);
                         vuexContext.commit('setToken', result.idToken)
+                        // expiresIn https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
+                        // * 1000 since it takes time in miliseconds
+                        // Invalidate token after expired time
+                        vuexContext.dispatch('setLogoutTimer', result.expiresIn * 1000)
                     })
                     .catch((e) => console.log(e));
+            },
+            setLogoutTimer(vuexContext, duration) {
+                setTimeout(() => {
+                    vuexContext.commit('clearToken')
+                }, duration)
             }
         },
         getters: {
