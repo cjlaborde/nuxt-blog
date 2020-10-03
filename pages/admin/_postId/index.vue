@@ -9,7 +9,7 @@
 <script>
 export default {
   layout: "admin",
-  middleware: "auth",
+  middleware: ["check-auth", "auth"],
   async asyncData(context) {
     try {
       const post = await context.app.$axios.$get(

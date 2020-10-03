@@ -99,6 +99,8 @@ const createStore = () => {
                     .then((result) => {
                         // console.log(result);
                         vuexContext.commit('setToken', result.idToken)
+                        localStorage.setItem('token', result.idToken)
+                        localStorage.setItem('tokenExpiration', new Date().getTime() + result.expiresIn * 1000)
                         // expiresIn https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
                         // * 1000 since it takes time in miliseconds
                         // Invalidate token after expired time
@@ -110,6 +112,18 @@ const createStore = () => {
                 setTimeout(() => {
                     vuexContext.commit('clearToken')
                 }, duration)
+            },
+            initAuth(vuexContext) {
+                const token = localStorage.getItem('token');
+                const expirationDate = localStorage.getItem("tokenExpiration");
+
+                // check if token expired or if there is no token.
+                if (new Date().getTime() > +expirationDate || !token) {
+                    return
+                }
+                vuexContext.dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
+                vuexContext.commit('setToken', token)
+
             }
         },
         getters: {
