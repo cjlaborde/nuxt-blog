@@ -48,8 +48,9 @@ const createStore = () => {
                     // Add the updated date
                     updatedDate: new Date(),
                 }
+                // vuexContext.state.token
                 return this.$axios
-                    .$post("/posts.json", createdPost)
+                    .$post("/posts.json?auth=" + vuexContext.state.token, createdPost)
                     .then((result) => {
                         console.log(result.name)
                         vuexContext.commit('addPost', { ...createdPost, id: result.name })
@@ -59,10 +60,11 @@ const createStore = () => {
             editPost(vuexContext, editedPost) {
                 return this.$axios
                     .$put(
+                        // https://firebase.google.com/docs/database/rest/auth
                         // editedPost will replace existing data on server
                         "/posts/" +
                         editedPost.id +
-                        ".json",
+                        ".json?auth=" + vuexContext.state.token,
                         editedPost
                     )
                     .then((editedPost) => {
