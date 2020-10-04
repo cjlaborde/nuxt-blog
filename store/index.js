@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import Cookie from 'js-cookie';
 
 const createStore = () => {
     return new Vuex.Store({
@@ -98,9 +99,16 @@ const createStore = () => {
                     })
                     .then((result) => {
                         // console.log(result);
-                        vuexContext.commit('setToken', result.idToken)
-                        localStorage.setItem('token', result.idToken)
-                        localStorage.setItem('tokenExpiration', new Date().getTime() + result.expiresIn * 1000)
+                        const expirationDate = new Date().getTime() + result.expiresIn * 1000;
+                        vuexContext.commit('setToken', result.idToken);
+                        // Create token
+                        localStorage.setItem('token', result.idToken);
+                        localStorage.setItem('tokenExpiration', expirationDate);
+
+                        // Create Cookie
+                        Cookie.set('jwt', result.idToken);
+                        Cookie.set('expirationDate', expirationDate);
+
                         // expiresIn https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
                         // * 1000 since it takes time in miliseconds
                         // Invalidate token after expired time
@@ -113,13 +121,39 @@ const createStore = () => {
                     vuexContext.commit('clearToken')
                 }, duration)
             },
-            initAuth(vuexContext) {
-                const token = localStorage.getItem('token');
-                const expirationDate = localStorage.getItem("tokenExpiration");
+            initAuth(vuexContext, req) {
+                let token;
+                let expirationDate;
+                if (req) {
+                    // if request has no cookie header return
+                    if (!req.headers.cookie) {
+                        return;
+                    }
+                    // get array of different keys and find key with jwt
+                    const jwtCookie = req.headers.cookie
+                        .split(';')
+                        .find(c => c.trim()
+                            .startsWith('jwt='));
+                    // if we fail getting cookie
+                    if (!jwtCookie) {
+                        return;
+                    }
+                    // get the part after the = sign
+                    token = jwtCookie.split('=')[1];
+                    expirationDate = req.headers.cookie
+                        .split(';')
+                        .find(c => c.trim()
+                            .startsWith('expirationDate='))
+                        .split('=')[1];
 
-                // check if token expired or if there is no token.
-                if (new Date().getTime() > +expirationDate || !token) {
-                    return
+                } else {
+                    token = localStorage.getItem('token');
+                    expirationDate = localStorage.getItem("tokenExpiration");
+
+                    // check if token expired or if there is no token.
+                    if (new Date().getTime() > +expirationDate || !token) {
+                        return
+                    }
                 }
                 vuexContext.dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
                 vuexContext.commit('setToken', token)
