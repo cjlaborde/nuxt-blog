@@ -99,7 +99,9 @@ const createStore = () => {
                     })
                     .then((result) => {
                         // console.log(result);
-                        const expirationDate = new Date().getTime() + result.expiresIn * 1000;
+                        // both + and parseInt do the same.
+                        // const expirationDate = new Date().getTime() + +result.expiresIn;
+                        const expirationDate = new Date().getTime() + Number.parseInt(result.expiresIn) * 1000;
                         vuexContext.commit('setToken', result.idToken);
                         // Create token
                         localStorage.setItem('token', result.idToken);
@@ -112,14 +114,8 @@ const createStore = () => {
                         // expiresIn https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
                         // * 1000 since it takes time in miliseconds
                         // Invalidate token after expired time
-                        vuexContext.dispatch('setLogoutTimer', result.expiresIn * 1000)
                     })
                     .catch((e) => console.log(e));
-            },
-            setLogoutTimer(vuexContext, duration) {
-                setTimeout(() => {
-                    vuexContext.commit('clearToken')
-                }, duration)
             },
             initAuth(vuexContext, req) {
                 let token;
@@ -150,13 +146,15 @@ const createStore = () => {
                     token = localStorage.getItem('token');
                     expirationDate = localStorage.getItem("tokenExpiration");
 
-                    // check if token expired or if there is no token.
-                    if (new Date().getTime() > +expirationDate || !token) {
-                        return
-                    }
                 }
-                vuexContext.dispatch('setLogoutTimer', +expirationDate - new Date().getTime())
-                vuexContext.commit('setToken', token)
+                // console.log(new Date().getTime(), +expirationDate);
+                // check if token expired or if there is no token.
+                if (new Date().getTime() > +expirationDate || !token) {
+                    console.log('No token or invalid token');
+                    vuexContext.commit('clearToken');
+                    return;
+                }
+                vuexContext.commit('setToken', token);
 
             }
         },
