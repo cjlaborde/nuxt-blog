@@ -3,7 +3,7 @@ export default {
   target: 'static',
 
   // if you use spa you have to load data different instead of asyncData use data
-  // mode: 'spa',
+  mode: 'spa',
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {

@@ -7,6 +7,13 @@
       >
         Create Post
       </AppButton>
+      <AppButton
+        style="margin-left: 10px"
+        @click="onLogout"
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      >
+        Logout
+      </AppButton>
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
@@ -22,6 +29,12 @@ export default {
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts;
+    },
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/admin/auth");
     },
   },
 };
