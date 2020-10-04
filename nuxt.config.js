@@ -1,9 +1,14 @@
+const pkg = require('./package')
+const bodyParser = require('body-parser')
+
+
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
 
   // if you use spa you have to load data different instead of asyncData use data
   mode: 'spa',
+  // ssr: false,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -106,6 +111,10 @@ export default {
   transition: {
     name: 'fade',
     mode: 'out-in'
-  }
+  },
+  serverMiddleware: [
+    bodyParser.json(),
+    '~/api'
+  ]
 
 }
