@@ -111,9 +111,12 @@ const createStore = () => {
                         Cookie.set('jwt', result.idToken);
                         Cookie.set('expirationDate', expirationDate);
 
+                        return this.$axios.$post('http://localhost:3000/api/track-data', { data: 'Aunthenticated!' })
+
                         // expiresIn https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password
                         // * 1000 since it takes time in miliseconds
-                        // Invalidate token after expired time
+                        // Invalidate token after expired time 
+
                     })
                     .catch((e) => console.log(e));
             },
