@@ -117,19 +117,24 @@ export default {
     bodyParser.json(),
     '~/api'
   ],
-  // generate: {
-  //   routes: function () {
-  //     // make 1 request to fetch all the posts and generate array of routes with all the keys of the posts
-  //     return axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json')
-  //       .res(res => {
-  //         const routes = []
-  //         for (const key in res.data) {
-  //           routes.push('/posts/' + key)
-  //         }
-  //         return routes
-  //       })
-  //   }
-  // }
+  generate: {
+    routes: function () {
+      // make 1 request to fetch all the posts and generate array of routes with all the keys of the posts
+      return axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json')
+        .res(res => {
+          const routes = []
+          for (const key in res.data) {
+            routes.push({
+              // path
+              route: '/posts/' + key,
+              // data of the post
+              payload: { postData: res.data[key] }
+            })
+          }
+          return routes
+        })
+    }
+  }
 
 
 }
