@@ -1,14 +1,15 @@
-const pkg = require('./package')
-const bodyParser = require('body-parser')
+const pkg = require('./package');
+const bodyParser = require('body-parser');
+const axios = require('axios');
 
 
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
-  target: 'static',
+  target: 'server',
 
   // if you use spa you have to load data different instead of asyncData use data
-  mode: 'spa',
-  // ssr: false,
+  mode: 'universal',
+  // ssr: true,
 
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -115,6 +116,20 @@ export default {
   serverMiddleware: [
     bodyParser.json(),
     '~/api'
-  ]
+  ],
+  // generate: {
+  //   routes: function () {
+  //     // make 1 request to fetch all the posts and generate array of routes with all the keys of the posts
+  //     return axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json')
+  //       .res(res => {
+  //         const routes = []
+  //         for (const key in res.data) {
+  //           routes.push('/posts/' + key)
+  //         }
+  //         return routes
+  //       })
+  //   }
+  // }
+
 
 }
