@@ -121,7 +121,7 @@ export default {
     routes: function () {
       // make 1 request to fetch all the posts and generate array of routes with all the keys of the posts
       return axios.get('https://nuxt-blog-bee7d.firebaseio.com/posts.json')
-        .res(res => {
+        .then(res => {
           const routes = []
           for (const key in res.data) {
             routes.push({
